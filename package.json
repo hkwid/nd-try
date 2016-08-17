@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint ./src",
     "start": "webpack-dev-server --progress --color --hot --inline --host 0.0.0.0 --content-base dist/",
-    "api": "node ./bin/www"
+    "api": "nodemon ./bin/www"
   },
   "dependencies": {
     "babel-core": "^6.13.2",
@@ -26,7 +26,9 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "eslint": "^3.3.1",
     "eslint-plugin-react": "^6.1.1",
+    "react-tap-event-plugin": "^1.0.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
