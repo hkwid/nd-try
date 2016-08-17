@@ -20,7 +20,6 @@ router.get('/kpi', function(req, res, next) {
   }
   var out = []
   for (kpi of kpis) {
-    console.log(kpi.modifiedDate);
     if((kpi.modifiedDate > fromDate) &&
        (kpi.modifiedDate < toDate)){
       out.push(kpi);
