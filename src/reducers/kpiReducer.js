@@ -1,9 +1,11 @@
 import { fetchKpiData } from '../actions/kpi.js';
+import json2csv from 'json2csv';
 
 let initialState = {
   fromDate: 0,
   toDate: Date.now(),
   toDateMinDate: 0,
+  downloadLink: '#',
   numShop: 0,
   numProduct: 0,
   numProductWithVideo: 0,
@@ -21,11 +23,29 @@ const getSumFromArryElem = (arr, key) => {
   return sum;
 };
 
+const getDownloadLink = (data) => {
+  //const csvData = JSON.stringify(data);
+  const field = ['id', 'company', 'contact', 'product', 'productWithVideo', 'status', 'modifiedDate'];
+  const csvData = json2csv({
+    data: data,
+    field: field
+  });
+  const blob = new Blob([csvData], {'type': 'text/plain'});
+
+  if(window.navigator.msSaveBlob) {
+    window.navigator.msSaveBlob(blob, 'kpi.csv');
+  } else {
+    if (window.URL.createObjectURL(blob)) {
+      return window.URL.createObjectURL(blob);
+    } else {
+      return '#';
+    }
+  }
+};
+
 const kpiReducer = (state = initialState, action) => {
   switch (action.type) {
   case 'CHANGE_FROM_DATE':
-    console.log(action.date);
-    //parse date to unix timestamp
     fetchKpiData(state.fromDate, state.toDate);
 
     return Object.assign({}, state, {
@@ -34,7 +54,6 @@ const kpiReducer = (state = initialState, action) => {
     });
 
   case 'CHANGE_TO_DATE':
-    console.log(action.date);
     //parse date to unix timestamp
     fetchKpiData(state.fromDate, state.toDate);
 
@@ -42,11 +61,9 @@ const kpiReducer = (state = initialState, action) => {
       toDate: Date.parse(action.date)/1000
     });
 
-  // DownloadCsv
   case 'RECEIVE_KPI_DATA':
-    // console.log(`receive kpi data: ${action.data}`);
-
     return Object.assign({}, state, {
+      downloadLink: getDownloadLink(action.data),
       numShop: Object.keys(action.data).length,
       numProduct: getSumFromArryElem(action.data, 'product'),
       numProductWithVideo: getSumFromArryElem(action.data, 'productWithVideo'),

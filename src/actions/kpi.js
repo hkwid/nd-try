@@ -14,10 +14,9 @@ export const changeToDate = (date) => {
   };
 };
 
-export const downloadCsv = (data) => {
+export const downloadCsv = () => {
   return {
-    type: 'DOWNLOAD_CSV',
-    data
+    type: 'DOWNLOAD_CSV'
   };
 };
 
