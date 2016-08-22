@@ -37,9 +37,8 @@ export const failToFetchKpiData = (err) => {
 
 // Async action
 export const fetchKpiData = (fromDate, toDate) => {
-  console.log(`fetchKpiData: ${fromDate}, ${toDate}`);
 
-  return dispatch => {
+  return (dispatch) => {
     return axios.get('/api/kpi', {
       params: {
         fromDate: fromDate,
@@ -47,14 +46,10 @@ export const fetchKpiData = (fromDate, toDate) => {
       }
     })
     .then(response => {
-      console.log('succeeded');
-      console.dir(response);
       dispatch(receiveKpiData(response.data));
     })
     .catch(e => {
-      console.log('error');
-      console.dir(e);
       dispatch(failToFetchKpiData(e));
     });
-   };
+  };
 };

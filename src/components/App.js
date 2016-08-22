@@ -11,14 +11,6 @@ import DashboardBody from './DashboardBody';
 injectTapEventPlugin();
 
 class App extends Component {
-  componentDidMount() {
-    this.init();
-    this.props.dispatch(fetchKpiData(0, 0));
-  }
-
-  init() {
-    console.log(`init!`);
-  }
 
   render() {
     return (
