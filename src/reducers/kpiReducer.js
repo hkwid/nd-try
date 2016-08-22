@@ -29,7 +29,8 @@ const kpiReducer = (state = initialState, action) => {
     fetchKpiData(state.fromDate, state.toDate);
 
     return Object.assign({}, state, {
-      fromDate: Date.parse(action.date)/1000
+      fromDate: Date.parse(action.date)/1000,
+      toDateMinDate: action.date
     });
 
   case 'CHANGE_TO_DATE':
@@ -43,7 +44,7 @@ const kpiReducer = (state = initialState, action) => {
 
   // DownloadCsv
   case 'RECEIVE_KPI_DATA':
-    console.log(`receive kpi data: ${action.data}`);
+    // console.log(`receive kpi data: ${action.data}`);
 
     return Object.assign({}, state, {
       numShop: Object.keys(action.data).length,

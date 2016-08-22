@@ -4,7 +4,13 @@ import { changeToDate } from '../actions/kpi';
 import DatePicker from 'material-ui/DatePicker';
 
 const mapStateToProps = (state) => {
-  return state;
+  let minDate = new Date(state.toDateMinDate);
+  // minDate.setFullYear(state.toDateMinDate.getFullYear() - 1);
+  // minDate.setHours(0, 0, 0, 0);
+
+  return {
+    toDateMinDate: minDate
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -16,6 +22,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 let ToDate = ({
+  toDateMinDate,
   onChange
 }) => (
   <DatePicker
@@ -23,6 +30,7 @@ let ToDate = ({
     onChange={(e, v) => {
       onChange(e, v);
     }}
+    minDate={toDateMinDate}
   />
 );
 
