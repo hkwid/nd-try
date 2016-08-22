@@ -5,14 +5,11 @@
   "scripts": {
     "lint": "eslint ./src",
     "start": "webpack-dev-server --progress --color --hot --inline --host 0.0.0.0 --content-base dist/",
-    "api": "nodemon ./bin/www"
+    "api": "nodemon ./bin/www",
+    "test": "mocha test/.setup.js test/**/*-test.js"
   },
   "dependencies": {
     "axios": "^0.13.1",
-    "babel-core": "^6.13.2",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.13.2",
-    "babel-preset-react": "^6.11.1",
     "body-parser": "^1.15.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
@@ -32,8 +29,17 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
+    "chai": "^3.5.0",
+    "enzyme": "^2.4.1",
     "eslint": "^3.3.1",
     "eslint-plugin-react": "^6.1.1",
+    "jsdom": "^9.4.2",
+    "mocha": "^3.0.2",
+    "react-addons-test-utils": "^15.3.1",
     "react-tap-event-plugin": "^1.0.0",
     "redux-logger": "^2.6.1",
     "webpack": "^1.13.1",
