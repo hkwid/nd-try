@@ -12,5 +12,5 @@ $ npm i
 ```shell
 $ webpack
 # watch
-$ webpack watch
+$ webpack --watch
 ```
