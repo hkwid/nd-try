@@ -1,11 +1,13 @@
-path = require('path');
-webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve('./public/dist/'),
     filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['', '.webpack.js', '.web.js', '.js']
   },
   module: {
     loaders: [
@@ -19,5 +21,6 @@ module.exports = {
         loader: 'style!css'
       }
     ]
-  }
-}
+  },
+  devtool: 'source-map'
+};

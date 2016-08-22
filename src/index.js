@@ -1,8 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Main from './components/main.jsx';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+
+import configureStore from './store/configureStore.js';
+import App from './components/app.js';
+
+const store = configureStore();
 
 ReactDOM.render(
-  <Main />,
-  document.getElementById('app')
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
 );
