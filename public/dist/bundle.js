@@ -23219,7 +23219,6 @@
 	
 	  switch (action.type) {
 	    case 'CHANGE_FROM_DATE':
-	      (0, _kpi.fetchKpiData)(state.fromDate, state.toDate);
 	
 	      return Object.assign({}, state, {
 	        fromDate: Date.parse(action.date) / 1000,
@@ -23227,8 +23226,6 @@
 	      });
 	
 	    case 'CHANGE_TO_DATE':
-	      //parse date to unix timestamp
-	      (0, _kpi.fetchKpiData)(state.fromDate, state.toDate);
 	
 	      return Object.assign({}, state, {
 	        toDate: Date.parse(action.date) / 1000
@@ -36012,6 +36009,8 @@
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -36026,31 +36025,62 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	// import { bindActionCreators } from 'redux';
+	
+	
 	var mapStateToProps = function mapStateToProps(state) {
-	  return state;
+	  return {
+	    fromDate: state.fromDate,
+	    ToDate: state.toDate
+	  };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    onChange: function onChange(e, v) {
+	    onChange: function onChange(e, v, fromDate, toDate) {
 	      dispatch((0, _kpi.changeFromDate)(v));
+	      dispatch((0, _kpi.fetchKpiData)(fromDate, toDate));
 	    }
 	  };
 	};
 	
-	var FromDate = function FromDate(_ref) {
-	  var _onChange = _ref.onChange;
-	  return _react2.default.createElement(_DatePicker2.default, {
-	    hintText: 'From Date',
-	    onChange: function onChange(e, v) {
-	      _onChange(e, v);
+	var FromDate = function (_Component) {
+	  _inherits(FromDate, _Component);
+	
+	  function FromDate() {
+	    _classCallCheck(this, FromDate);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(FromDate).apply(this, arguments));
+	  }
+	
+	  _createClass(FromDate, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var _onChange = _props.onChange;
+	      var fromDate = _props.fromDate;
+	      var toDate = _props.toDate;
+	
+	      return _react2.default.createElement(_DatePicker2.default, {
+	        hintText: 'From Date',
+	        onChange: function onChange(e, v) {
+	          _onChange(e, v, fromDate, toDate);
+	        }
+	      });
 	    }
-	  });
-	};
+	  }]);
 	
-	FromDate = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FromDate);
+	  return FromDate;
+	}(_react.Component);
 	
-	exports.default = FromDate;
+	var ConnectedFromDate = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FromDate);
+	
+	exports.default = ConnectedFromDate;
 
 /***/ },
 /* 429 */
@@ -42695,6 +42725,8 @@
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -42708,6 +42740,12 @@
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  var minDate = new Date(state.toDateMinDate);
@@ -42725,21 +42763,40 @@
 	  };
 	};
 	
-	var ToDate = function ToDate(_ref) {
-	  var toDateMinDate = _ref.toDateMinDate;
-	  var _onChange = _ref.onChange;
-	  return _react2.default.createElement(_DatePicker2.default, {
-	    hintText: 'To Date',
-	    onChange: function onChange(e, v) {
-	      _onChange(e, v);
-	    },
-	    minDate: toDateMinDate
-	  });
-	};
+	var ToDate = function (_Component) {
+	  _inherits(ToDate, _Component);
 	
-	ToDate = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ToDate);
+	  function ToDate() {
+	    _classCallCheck(this, ToDate);
 	
-	exports.default = ToDate;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ToDate).apply(this, arguments));
+	  }
+	
+	  _createClass(ToDate, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var _onChange = _props.onChange;
+	      var fromDate = _props.fromDate;
+	      var toDate = _props.toDate;
+	      var toDateMinDate = _props.toDateMinDate;
+	
+	      return _react2.default.createElement(_DatePicker2.default, {
+	        hintText: 'To Date',
+	        onChange: function onChange(e, v) {
+	          _onChange(e, v, fromDate, toDate);
+	        },
+	        minDate: toDateMinDate
+	      });
+	    }
+	  }]);
+	
+	  return ToDate;
+	}(_react.Component);
+	
+	var ConnectedToDate = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ToDate);
+	
+	exports.default = ConnectedToDate;
 
 /***/ },
 /* 469 */

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { changeToDate } from '../actions/kpi';
 import DatePicker from 'material-ui/DatePicker';
@@ -19,22 +19,24 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-let ToDate = ({
-  toDateMinDate,
-  onChange
-}) => (
-  <DatePicker
-    hintText='To Date'
-    onChange={(e, v) => {
-      onChange(e, v);
-    }}
-    minDate={toDateMinDate}
-  />
-);
+class ToDate extends Component {
+  render () {
+    const { onChange, fromDate, toDate, toDateMinDate } = this.props;
+    return (
+      <DatePicker
+        hintText='To Date'
+        onChange={(e, v) => {
+          onChange(e, v, fromDate, toDate);
+        }}
+        minDate={toDateMinDate}
+      />
+    );
+  }
+}
 
-ToDate = connect(
+const ConnectedToDate = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ToDate);
 
-export default ToDate;
+export default ConnectedToDate;

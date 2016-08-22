@@ -46,7 +46,6 @@ const getDownloadLink = (data) => {
 const kpiReducer = (state = initialState, action) => {
   switch (action.type) {
   case 'CHANGE_FROM_DATE':
-    fetchKpiData(state.fromDate, state.toDate);
 
     return Object.assign({}, state, {
       fromDate: Date.parse(action.date)/1000,
@@ -54,8 +53,6 @@ const kpiReducer = (state = initialState, action) => {
     });
 
   case 'CHANGE_TO_DATE':
-    //parse date to unix timestamp
-    fetchKpiData(state.fromDate, state.toDate);
 
     return Object.assign({}, state, {
       toDate: Date.parse(action.date)/1000
