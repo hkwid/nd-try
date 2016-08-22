@@ -9,7 +9,7 @@ import { fetchKpiData } from '../actions/kpi';
 const mapStateToProps = (state) => {
   return {
     fromDate: state.fromDate,
-    ToDate: state.toDate,
+    toDate: state.toDate
   };
 };
 

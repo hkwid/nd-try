@@ -36036,7 +36036,7 @@
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
 	    fromDate: state.fromDate,
-	    ToDate: state.toDate
+	    toDate: state.toDate
 	  };
 	};
 	
@@ -42751,14 +42751,17 @@
 	  var minDate = new Date(state.toDateMinDate);
 	
 	  return {
+	    fromDate: state.fromDate,
+	    toDate: state.toDate,
 	    toDateMinDate: minDate
 	  };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    onChange: function onChange(e, v) {
+	    onChange: function onChange(e, v, fromDate, toDate) {
 	      dispatch((0, _kpi.changeToDate)(v));
+	      dispatch((0, _kpi.fetchKpiData)(fromDate, toDate));
 	    }
 	  };
 	};
